@@ -1,6 +1,4 @@
-
-# sw.js - Service Worker for offline support
-sw_content = '''const CACHE_NAME = 'vscode-pwa-v1';
+const CACHE_NAME = 'vscode-pwa-v1';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -41,9 +39,4 @@ self.addEventListener('activate', (event) => {
     })
   );
   self.clients.claim();
-});'''
-
-with open(f"{base_dir}/sw.js", "w", encoding="utf-8") as f:
-    f.write(sw_content)
-
-print("sw.js created")
+});

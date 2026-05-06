@@ -1,8 +1,4 @@
-
-base_dir = "/mnt/agents/output/vscode-pwa"
-
-# style.css - VS Code Dark Theme
-style_content = '''/* VS Code Dark Theme */
+/* VS Code Dark Theme */
 :root {
   --bg-primary: #1e1e1e;
   --bg-secondary: #252526;
@@ -915,9 +911,3 @@ body {
 .slide-in {
   animation: slideIn 0.2s ease;
 }
-'''
-
-with open(f"{base_dir}/style.css", "w", encoding="utf-8") as f:
-    f.write(style_content)
-
-print("style.css created successfully")
