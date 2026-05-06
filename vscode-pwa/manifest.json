@@ -1,6 +1,4 @@
-
-# manifest.json - PWA Configuration
-manifest_content = '''{
+{
   "name": "VS Code Terminal",
   "short_name": "VSCodeTerm",
   "description": "Interactive VS Code-like terminal for learning commands",
@@ -51,9 +49,4 @@ manifest_content = '''{
       "type": "image/png"
     }
   ]
-}'''
-
-with open(f"{base_dir}/manifest.json", "w", encoding="utf-8") as f:
-    f.write(manifest_content)
-
-print("manifest.json created")
+}

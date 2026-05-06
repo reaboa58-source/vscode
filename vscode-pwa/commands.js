@@ -1,8 +1,4 @@
-
-base_dir = "/mnt/agents/output/vscode-pwa"
-
-# commands.js - 80 commands database
-cmds_content = r'''const commandsDB = {
+const commandsDB = {
   "git init": {
     desc: "Initialize a new Git repository",
     usage: "git init [directory]",
@@ -536,9 +532,3 @@ const commandCategories = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { commandsDB, commandCategories };
 }
-'''
-
-with open(f"{base_dir}/commands.js", "w", encoding="utf-8") as f:
-    f.write(cmds_content)
-
-print("commands.js created successfully with 80 commands")

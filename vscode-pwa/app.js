@@ -1,8 +1,4 @@
-
-base_dir = "/mnt/agents/output/vscode-pwa"
-
-# app.js - Main application logic
-app_js_content = r'''// VS Code Terminal - Main Application
+// VS Code Terminal - Main Application
 (function() {
   'use strict';
 
@@ -584,9 +580,3 @@ app_js_content = r'''// VS Code Terminal - Main Application
   window.focusTerminal = focusTerminal;
 
 })();
-'''
-
-with open(f"{base_dir}/app.js", "w", encoding="utf-8") as f:
-    f.write(app_js_content)
-
-print("app.js created successfully")
