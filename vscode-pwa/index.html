@@ -1,0 +1,183 @@
+
+base_dir = "/mnt/agents/output/vscode-pwa"
+
+# index.html - Main HTML file
+html_content = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#007acc">
+  <meta name="description" content="VS Code Terminal - Interactive Command Learning Environment">
+  <title>VS Code Terminal</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23007acc' width='100' height='100' rx='15'/><text x='50' y='65' font-size='50' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>VS</text></svg>">
+</head>
+<body>
+  <div class="vscode-container">
+    <!-- Title Bar -->
+    <div class="title-bar">
+      <div class="title-bar-left">
+        <div class="vscode-icon">VS</div>
+        <span class="title-text">VS Code Terminal - project</span>
+      </div>
+      <div class="title-bar-right">
+        <div class="window-btn minimize"></div>
+        <div class="window-btn maximize"></div>
+        <div class="window-btn close"></div>
+      </div>
+    </div>
+
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+      <div class="menu-item">File</div>
+      <div class="menu-item">Edit</div>
+      <div class="menu-item">Selection</div>
+      <div class="menu-item">View</div>
+      <div class="menu-item">Go</div>
+      <div class="menu-item">Run</div>
+      <div class="menu-item">Terminal</div>
+      <div class="menu-item">Help</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Activity Bar -->
+      <div class="activity-bar">
+        <div class="activity-icon active" data-view="explorer" title="Explorer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <div class="activity-icon" data-view="search" title="Search Commands">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+        <div class="activity-icon" data-view="terminal" title="Toggle Terminal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        </div>
+        <div style="flex:1"></div>
+        <div class="activity-icon" data-view="settings" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <span>Explorer</span>
+          <div class="sidebar-actions">
+            <div class="sidebar-action" title="New File">+</div>
+            <div class="sidebar-action" title="New Folder">📁</div>
+            <div class="sidebar-action" title="Refresh">↻</div>
+            <div class="sidebar-action" title="Collapse">⤢</div>
+          </div>
+        </div>
+        <div class="file-tree" id="file-tree"></div>
+      </div>
+
+      <!-- Editor Area -->
+      <div class="editor-area">
+        <!-- Tabs -->
+        <div class="tabs-bar" id="tabs-bar"></div>
+        
+        <!-- Editor Content -->
+        <div class="editor-content" id="editor-content"></div>
+
+        <!-- Command Details Panel -->
+        <div class="details-panel" id="details-panel">
+          <div class="details-header">
+            <span class="details-title" id="details-title">Command Details</span>
+            <div class="details-close" id="details-close">&times;</div>
+          </div>
+          <div class="details-body">
+            <div class="detail-section">
+              <div class="detail-label">Description</div>
+              <div class="detail-value" id="detail-desc">Select a command to see details</div>
+            </div>
+            <div class="detail-section">
+              <div class="detail-label">Usage</div>
+              <div class="detail-value" id="detail-usage">-</div>
+            </div>
+            <div class="detail-section">
+              <div class="detail-label">Flags</div>
+              <div class="detail-value pre" id="detail-flags">-</div>
+            </div>
+            <div class="detail-section">
+              <div class="detail-label">Example Output</div>
+              <div class="detail-value pre" id="detail-output">-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="terminal-container" id="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-tabs">
+          <div class="terminal-tab active">Terminal</div>
+          <div class="terminal-tab">Output</div>
+          <div class="terminal-tab">Debug Console</div>
+        </div>
+        <div class="terminal-actions">
+          <div class="terminal-action" title="Split Terminal">⫚</div>
+          <div class="terminal-action" title="Kill Terminal">🗑</div>
+          <div class="terminal-action" title="Maximize">⤢</div>
+          <div class="terminal-action" title="Close">&times;</div>
+        </div>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="terminal-input-line">
+          <span class="terminal-prompt">user@dev:~$</span>
+          <input type="text" class="terminal-input" id="terminal-input" autocomplete="off" spellcheck="false">
+          <span class="terminal-cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <div class="status-item">
+          <span>main*</span>
+        </div>
+        <div class="status-item">
+          <span>0 errors, 0 warnings</span>
+        </div>
+      </div>
+      <div class="status-right">
+        <div class="status-item">
+          <span>Ln 1, Col 1</span>
+        </div>
+        <div class="status-item">
+          <span>UTF-8</span>
+        </div>
+        <div class="status-item">
+          <span>JavaScript</span>
+        </div>
+        <div class="status-item">
+          <span>80 commands loaded</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Command Palette Overlay -->
+  <div class="overlay" id="overlay"></div>
+  
+  <!-- Command Palette -->
+  <div class="command-palette" id="command-palette">
+    <input type="text" class="palette-input" id="palette-input" placeholder="Type a command name..." autocomplete="off">
+    <div class="palette-results" id="palette-results"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="commands.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+'''
+
+with open(f"{base_dir}/index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("index.html created successfully")
